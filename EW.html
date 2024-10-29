@@ -1,0 +1,226 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <script src="fp-components/fp-components-common.js"></script>
+        <script src="fp-components/fp-components-button-a.js"></script>
+        <script src="fp-components/fp-components-checkbox-a.js"></script>
+        <script src="fp-components/fp-components-digital-a.js"></script>
+        <script src="fp-components/fp-components-dropdown-a.js"></script>
+        <script src="fp-components/fp-components-input-a.js"></script>
+        <script src="fp-components/fp-components-levelmeter-a.js"></script>
+        <script src="fp-components/fp-components-linechart-a.js"></script>
+        <script src="fp-components/fp-components-popup-a.js"></script>
+        <script src="fp-components/fp-components-radio-a.js"></script>
+        <script src="fp-components/fp-components-switch-a.js"></script>
+        <script src="fp-components/fp-components-tabcontainer-a.js"></script>
+        <script src="fp-components/fp-components-toggle-a.js"></script>
+        <script src="fp-components/fp-components-foldin-a.js"></script>
+        <script src="fp-components/fp-components-menu-a.js"></script>
+        <script src="fp-components/fp-components-hamburgermenu-a.js"></script>
+        <script src="fp-components/fp-components-slider-a.js"></script>
+        <script src="fp-components/fp-components-contextmenu-a.js"></script>
+
+        <script src="Belt.js" defer></script>
+        <script src="Arm.js" defer></script>
+        <!-- <script src="Menu.js"></script> -->
+        <script src="Sylinder.js"></script>
+
+        <style>
+            body {
+                display: flex;
+                flex-direction: row;
+                align-items: flex-start;
+                margin: 0;
+                height: 100vh;
+            }
+            
+            .Belt-main-controlbox > :nth-child(1) {
+                background-color: #dddddd;
+                height: 30px;
+                display: flex;
+                align-items: center;
+                padding-left: 8px;
+            }
+            .Belt-main-controlbox > :nth-child(1) > p {
+                font-weight: bold;
+                font-size: 18px;
+            }
+            .Belt-main-table td {
+                padding: 15px;
+            }
+
+            .Arm-main-controlbox > :nth-child(1) {
+                background-color: #dddddd;
+                height: 30px;
+                display: flex;
+                align-items: center;
+                padding-left: 8px;
+            }
+            .Arm-main-controlbox > :nth-child(1) > p {
+                font-weight: bold;
+                font-size: 18px;
+            }
+            .Arm-main-table td {
+                padding: 15px;
+            }
+            .Arm-radio-button {
+                padding: 10px;
+            }
+
+            .Sylinder-main-controlbox > :nth-child(1) {
+                background-color: #dddddd;
+                height: 30px;
+                display: flex;
+                align-items: center;
+                padding-left: 8px;
+            }
+            .Sylinder-main-controlbox > :nth-child(1) > p {
+                font-weight: bold;
+                font-size: 18px;
+            }
+            .Sylinder-main-table td {
+                padding: 15px;
+            }
+
+            .Burgermenu {
+                flex: 1;
+                border: 1px solid black;
+                box-sizing: border-box;   
+            }
+            
+            .control-panel {
+                display: flex;
+                flex-direction: column;
+                flex: 1;
+                overflow-y: auto;
+            }
+
+            .Belt-main-controlbox,
+            .Arm-main-controlbox,
+            .Sylinder-main-controlbox {
+                border-style: solid;
+                border-radius: 2px;
+                border-color: #d5d5d5;
+                box-sizing: border-box;
+                display: block !important; 
+                flex-flow: column;
+                width: 100%;
+                height: 100%;
+            }
+
+            .visible {
+                display: block !important;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div>
+            <div class="Burgermenu" id="Burgermenu"></div>
+        </div>
+        <div class="control-panel">
+            <div id="Belt-main-controlbox" class="Belt-main-controlbox">
+                <div>
+                    <p>Belt</p>
+                </div>
+                <div>
+                    <table class="Belt-main-table">
+                        <tr>
+                            <td>
+                                <div id="button-belt-forward"></div>
+                            </td>
+                            <td>
+                                <div id="button-belt-backward"></div>
+                            </td>
+                            <td>
+                                <div id="slide-belt-speed"></div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div id="Arm-main-controlbox" class="Arm-main-controlbox">
+                <div>
+                    <p>Arm</p>
+                </div>
+                <table class="Arm-main-table">
+                    <tr>
+                        <td>
+                            <div class="Arm-radio-button" id="radio1-arm-mode"></div>
+                            <div class="Arm-radio-button" id="radio2-arm-mode"></div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="Sylinder-main-controlbox" class="Sylinder-main-controlbox">
+                <div>
+                    <p>Sylinder</p>
+                </div>
+                <table class="Sylinder-main-table">
+                    <tr>
+                        <td>
+                            <div id="button-sylinder-forward"></div>
+                        </td>
+                        <td>
+                            <div id="button-sylinder-backward"></div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </body>
+
+    <script>
+    window.addEventListener("load", async function () {
+    setTimeout(() => {
+        fpComponentsEnableLog();
+        // initializeMenu();
+    }, 200);
+    });
+
+    // function initializeMenu() {
+    //     const burgerMenu = new FPComponents.Hamburgermenu_A();
+    //     burgerMenu.title = "Menu";
+        
+    //     const beltControlBox = document.getElementById("Belt-main-controlbox");
+    //     const armControlBox = document.getElementById("Arm-main-controlbox");
+    //     const sylinderControlBox = document.getElementById("Sylinder-main-controlbox");
+
+    //     console.log("Belt Control Box:", beltControlBox);
+    //     console.log("Arm Control Box:", armControlBox);
+    //     console.log("Sylinder Control Box:", sylinderControlBox);
+
+    //     console.log("Belt Control Box innerHTML:", beltControlBox.innerHTML);
+    //     console.log("Arm Control Box innerHTML:", armControlBox.innerHTML);
+    //     console.log("Sylinder Control Box innerHTML:", sylinderControlBox.innerHTML);
+
+    //     burgerMenu.attachToId("Burgermenu");
+    //     burgerMenu.addView("Belt", beltControlBox, null, true);
+    //     burgerMenu.addView("Arm", armControlBox, null);
+    //     burgerMenu.addView("Sylinder", sylinderControlBox, null);
+
+    //     beltControlBox.style.display = "block";
+    //     armControlBox.style.display = "block";
+    //     sylinderControlBox.style.display = "block";
+
+    //     burgerMenu.onchange = (oldId, newId) => {
+    //         document.querySelectorAll('.Belt-main-controlbox, .Arm-main-controlbox, .Sylinder-main-controlbox').forEach(control => {
+    //             control.classList.remove('visible');
+    //         });
+
+    //         const activeView = document.getElementById(newId);
+    //         if (activeView) {
+    //             activeView.classList.add('visible'); 
+    //         }
+    //     };
+
+    //     if (burgerMenu.viewIdList.length > 0) {
+    //         burgerMenu.activeView = burgerMenu.viewIdList[0];
+    //     }
+    // }
+    </script>
+
+    </html>
