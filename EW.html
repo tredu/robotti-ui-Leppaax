@@ -29,14 +29,6 @@
         <script src="Sylinder.js"></script>
 
         <style>
-            body {
-                display: flex;
-                flex-direction: row;
-                align-items: flex-start;
-                margin: 0;
-                height: 100vh;
-            }
-            
             .Belt-main-controlbox > :nth-child(1) {
                 background-color: #dddddd;
                 height: 30px;
@@ -85,19 +77,6 @@
                 padding: 15px;
             }
 
-            .Burgermenu {
-                flex: 1;
-                border: 1px solid black;
-                box-sizing: border-box;   
-            }
-            
-            .control-panel {
-                display: flex;
-                flex-direction: column;
-                flex: 1;
-                overflow-y: auto;
-            }
-
             .Belt-main-controlbox,
             .Arm-main-controlbox,
             .Sylinder-main-controlbox {
@@ -110,18 +89,14 @@
                 width: 100%;
                 height: 100%;
             }
-
-            .visible {
-                display: block !important;
-            }
         </style>
     </head>
 
-    <body>
-        <div>
-            <div class="Burgermenu" id="Burgermenu"></div>
-        </div>
+    <body>    
         <div class="control-panel">
+            
+            <div class="Burgermenu" id="Burgermenu"  style="height: 100vh; width: 100vw"></div>
+
             <div id="Belt-main-controlbox" class="Belt-main-controlbox">
                 <div>
                     <p>Belt</p>
@@ -152,6 +127,12 @@
                             <div class="Arm-radio-button" id="radio1-arm-mode"></div>
                             <div class="Arm-radio-button" id="radio2-arm-mode"></div>
                         </td>
+                        <td>
+                            <div class="Arm-auto-start" id="Arm-auto-start"></div>
+                        </td>
+                        <td>
+                            <div class="Arm-auto-stop" id="Arm-auto-stop"></div>
+                        </td>
                     </tr>
                 </table>
             </div>
@@ -177,50 +158,19 @@
     window.addEventListener("load", async function () {
     setTimeout(() => {
         fpComponentsEnableLog();
-        // initializeMenu();
+        initializeMenu();
     }, 200);
     });
 
-    // function initializeMenu() {
-    //     const burgerMenu = new FPComponents.Hamburgermenu_A();
-    //     burgerMenu.title = "Menu";
-        
-    //     const beltControlBox = document.getElementById("Belt-main-controlbox");
-    //     const armControlBox = document.getElementById("Arm-main-controlbox");
-    //     const sylinderControlBox = document.getElementById("Sylinder-main-controlbox");
+    function initializeMenu() {
+        const burgerMenu = new FPComponents.Hamburgermenu_A();
+        burgerMenu.title = "Menu";
 
-    //     console.log("Belt Control Box:", beltControlBox);
-    //     console.log("Arm Control Box:", armControlBox);
-    //     console.log("Sylinder Control Box:", sylinderControlBox);
-
-    //     console.log("Belt Control Box innerHTML:", beltControlBox.innerHTML);
-    //     console.log("Arm Control Box innerHTML:", armControlBox.innerHTML);
-    //     console.log("Sylinder Control Box innerHTML:", sylinderControlBox.innerHTML);
-
-    //     burgerMenu.attachToId("Burgermenu");
-    //     burgerMenu.addView("Belt", beltControlBox, null, true);
-    //     burgerMenu.addView("Arm", armControlBox, null);
-    //     burgerMenu.addView("Sylinder", sylinderControlBox, null);
-
-    //     beltControlBox.style.display = "block";
-    //     armControlBox.style.display = "block";
-    //     sylinderControlBox.style.display = "block";
-
-    //     burgerMenu.onchange = (oldId, newId) => {
-    //         document.querySelectorAll('.Belt-main-controlbox, .Arm-main-controlbox, .Sylinder-main-controlbox').forEach(control => {
-    //             control.classList.remove('visible');
-    //         });
-
-    //         const activeView = document.getElementById(newId);
-    //         if (activeView) {
-    //             activeView.classList.add('visible'); 
-    //         }
-    //     };
-
-    //     if (burgerMenu.viewIdList.length > 0) {
-    //         burgerMenu.activeView = burgerMenu.viewIdList[0];
-    //     }
-    // }
+        burgerMenu.addView("Belt", "Belt-main-controlbox", "App_Default_100.png", true);
+        burgerMenu.addView("Arm", "Arm-main-controlbox", "App_Default_100.png", false);
+        burgerMenu.addView("Sylinder", "Sylinder-main-controlbox", "App_Default_100.png", false);
+        burgerMenu.attachToId("Burgermenu");
+    }
     </script>
 
     </html>
