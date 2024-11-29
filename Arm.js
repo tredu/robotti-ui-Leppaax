@@ -1,5 +1,8 @@
 window.addEventListener("load", async function () {
 
+    RobotArmAutomaticMode = false;
+    RobotArmAutomaticModeOn = false;
+
     fpComponentsEnableLog();
 
     try {
@@ -28,12 +31,16 @@ window.addEventListener("load", async function () {
         button1._root.style.backgroundColor = "#28c76f";
         button1._root.style.color = "#ffffff";
         button1._root.style.borderRadius = "100px";
-        button1._root.style.width = "100px";
-        button1._root.style.height = "100px";
+        button1._root.style.width = "150px";
+        button1._root.style.height = "150px";
         button1._root.style.display = "flex";
         button1._root.style.alignItems = "center";
         button1._root.style.justifyContent = "center";
         button1._root.style.border= "1px solid black";
+
+        button1.onclick = () => {
+            start();
+        };
 
         var button2 = new FPComponents.Button_A();
         button2.text = "Stop";
@@ -41,21 +48,39 @@ window.addEventListener("load", async function () {
         button2._root.style.backgroundColor = "#dc3545";
         button2._root.style.color = "#ffffff";
         button2._root.style.borderRadius = "100px";
-        button2._root.style.width = "100px";
-        button2._root.style.height = "100px";
+        button2._root.style.width = "150px";
+        button2._root.style.height = "150px";
         button2._root.style.display = "flex";
         button2._root.style.alignItems = "center";
         button2._root.style.justifyContent = "center";
         button2._root.style.border= "1px solid black";
 
+        button2.onclick = () => {
+            stop();
+        };
+
         function toggleButtons() {
             if (radio1.checked) {
                 button1._root.style.display = "flex";
                 button2._root.style.display = "flex";
+                RobotArmAutomaticMode = true;
+                console.log("Robot Arm Automatic Mode: " + RobotArmAutomaticMode);
             } else {
                 button1._root.style.display = "none";
                 button2._root.style.display = "none";
+                RobotArmAutomaticMode = false;
+                console.log("Robot Arm Automatic Mode: " + RobotArmAutomaticMode);
             }
+        }
+
+        function start() {
+            RobotArmAutomaticModeOn = true;
+            console.log("Robot Arm Automatic Mode Started: " + RobotArmAutomaticModeOn);
+        }
+
+        function stop() {
+            RobotArmAutomaticModeOn = false;
+            console.log("Robot Arm Automatic Mode Stopped: " + RobotArmAutomaticModeOn);
         }
 
         toggleButtons();
