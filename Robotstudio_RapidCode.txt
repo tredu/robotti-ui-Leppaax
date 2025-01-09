@@ -1,0 +1,19 @@
+MODULE MainModule
+    VAR bool AutomaticMode := FALSE;
+    VAR bool AutomaticModeOn := FALSE;
+    
+PROC AutomaticMode()
+	IF AutomaticModes = 1 THEN
+		Set ABB_IO_X1_0_DO10, 1;
+    ELSE 
+        Set ABB_IO_X1_0_DO10, 0;
+	ENDIF
+ENDPROC
+
+PROC AutomaticModeOn()
+    IF AutomaticModeOn = 1 THEN
+        Set ABB_IO_X1_0_DO11, 1;
+    ELSE
+        Set ABB_IO_X1_0_DO11, 0;
+ENDPROC
+ENDMODULE

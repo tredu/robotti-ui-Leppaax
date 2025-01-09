@@ -1,7 +1,7 @@
 window.addEventListener("load", async function () {
 
-    RobotArmAutomaticMode = false;
-    RobotArmAutomaticModeOn = false;
+    let AutomaticMode = false;
+    let AutomaticModeOn = false;
 
     fpComponentsEnableLog();
 
@@ -36,7 +36,7 @@ window.addEventListener("load", async function () {
         button1._root.style.display = "flex";
         button1._root.style.alignItems = "center";
         button1._root.style.justifyContent = "center";
-        button1._root.style.border= "1px solid black";
+        button1._root.style.border = "1px solid black";
 
         button1.onclick = () => {
             start();
@@ -53,7 +53,7 @@ window.addEventListener("load", async function () {
         button2._root.style.display = "flex";
         button2._root.style.alignItems = "center";
         button2._root.style.justifyContent = "center";
-        button2._root.style.border= "1px solid black";
+        button2._root.style.border = "1px solid black";
 
         button2.onclick = () => {
             stop();
@@ -63,25 +63,84 @@ window.addEventListener("load", async function () {
             if (radio1.checked) {
                 button1._root.style.display = "flex";
                 button2._root.style.display = "flex";
-                RobotArmAutomaticMode = true;
-                console.log("Robot Arm Automatic Mode: " + RobotArmAutomaticMode);
+                AutomaticMode = true;
+                console.log("Robot Arm Automatic Mode: " + AutomaticMode);
             } else {
                 button1._root.style.display = "none";
                 button2._root.style.display = "none";
-                RobotArmAutomaticMode = false;
-                console.log("Robot Arm Automatic Mode: " + RobotArmAutomaticMode);
+                AutomaticMode = false;
+                console.log("Robot Arm Automatic Mode: " + AutomaticMode);
+            }
+
+            toggleAutomaticMode();
+        }
+
+        async function toggleAutomaticMode() {
+            try {
+                const response = await fetch('http://192.168.125.1/rw/rapid/symbol/data/RAPID/T_ROB1/MainModule/AutomaticMode', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': 'Basic ' + btoa('Default User:robotics'),
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `value=${AutomaticMode}`
+                });
+
+                if (response.ok) {
+                    console.log("AutomaticMode updated to: " + AutomaticMode);
+                    await updateDO10();
+                } else {
+                    throw new Error('Failed to update AutomaticMode');
+                }
+            } catch (error) {
+                console.error('Error updating AutomaticMode:', error);
             }
         }
 
-        function start() {
-            RobotArmAutomaticModeOn = true;
-            console.log("Robot Arm Automatic Mode Started: " + RobotArmAutomaticModeOn);
+        async function start() {
+            try {
+                const response = await fetch('http://192.168.125.1/rw/rapid/symbol/data/RAPID/T_ROB1/MainModule/AutomaticModeOn', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': 'Basic ' + btoa('Default User:robotics'),
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: 'value:=TRUE'
+                });
+
+                if (response.ok) {
+                    AutomaticModeOn = true;
+                    console.log("Robot Arm Automatic Mode Started: " + AutomaticModeOn);
+                } else {
+                    throw new Error('Failed to start automatic mode');
+                }
+            } catch (error) {
+                console.error('Error starting automatic mode:', error);
+            }
         }
 
-        function stop() {
-            RobotArmAutomaticModeOn = false;
-            console.log("Robot Arm Automatic Mode Stopped: " + RobotArmAutomaticModeOn);
-        }
+        async function stop() {
+            try {
+                const response = await fetch('http://192.168.125.1/rw/rapid/symbol/data/RAPID/T_ROB1/MainModule/AutomaticModeOn', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': 'Basic ' + btoa('Default User:robotics'),
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: 'value:=FALSE'
+                });
+
+                if (response.ok) { 
+                    AutomaticModeOn = false;
+                    console.log("Robot Arm Automatic Mode Stopped: " + AutomaticModeOn);
+                } else {
+                    throw new Error('Failed to stop automatic mode');
+                } 
+            } catch (error) {
+                    console.error('Error stopping automatic mode:', error);
+            }
+    }
+        
 
         toggleButtons();
 
