@@ -1,19 +1,53 @@
 MODULE MainModule
-    VAR bool AutomaticMode := FALSE;
-    VAR bool AutomaticModeOn := FALSE;
+    PERS bool AutomaticMode := TRUE;
+    PERS bool AutomaticModeOn := TRUE;
+    PERS bool BeltForward := FALSE;
+    PERS bool BeltBackward := FALSE;
+    PERS bool SylinderOut := TRUE;
     
-PROC AutomaticMode()
-	IF AutomaticModes = 1 THEN
-		Set ABB_IO_X1_0_DO10, 1;
+PROC SETAutomaticMode()
+	IF AutomaticMode = TRUE THEN
+		SetDO ABB_IO_X1_0_DO10, 1;
     ELSE 
-        Set ABB_IO_X1_0_DO10, 0;
+        SetDO ABB_IO_X1_0_DO10, 0;
 	ENDIF
 ENDPROC
 
-PROC AutomaticModeOn()
-    IF AutomaticModeOn = 1 THEN
-        Set ABB_IO_X1_0_DO11, 1;
+PROC SETAutomaticModeOn()
+    IF AutomaticModeOn = TRUE THEN
+        SetDO ABB_IO_X1_0_DO11, 1;
     ELSE
-        Set ABB_IO_X1_0_DO11, 0;
+        SetDO ABB_IO_X1_0_DO11, 0;
+    ENDIF
 ENDPROC
+
+PROC PUTSylinderOut()
+    IF SylinderOut = TRUE THEN
+        SetDo ABB_IO_X1_0_DO12, 1;
+    ELSE 
+        SetDo ABB_IO_X1_0_DO12, 0;
+    ENDIF
+ENDPROC
+
+PROC RUNBeltForward()
+    IF BeltForward = TRUE THEN
+        SetDo ABB_IO_X1_0_DO13, 1;
+    ELSE 
+        SetDo ABB_IO_X1_0_DO13, 0;
+    ENDIF
+ENDPROC
+
+PROC RUNBeltbackward()
+    IF BeltBackward = TRUE THEN
+        SetDo ABB_IO_X1_0_DO14, 1;
+    ELSE 
+        SetDo ABB_IO_X1_0_DO14, 0;
+    ENDIF
+ENDPROC
+
+PROC main()
+		RUNBeltForward;
+
+ENDPROC
+
 ENDMODULE
