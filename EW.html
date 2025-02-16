@@ -4,6 +4,9 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+        <!-- Every fp-component getting called so they work
+        Kutsutaan jokainen fp-component jotta ne toimivat -->
+
         <script src="fp-components/fp-components-common.js"></script>
         <script src="fp-components/fp-components-button-a.js"></script>
         <script src="fp-components/fp-components-checkbox-a.js"></script>
@@ -22,11 +25,17 @@
         <script src="fp-components/fp-components-hamburgermenu-a.js"></script>
         <script src="fp-components/fp-components-slider-a.js"></script>
         <script src="fp-components/fp-components-contextmenu-a.js"></script>
+<!-- 
+        Call the other files
+        Kutsutaan muut tiedostot -->
 
         <script src="Belt.js" defer></script>
         <script src="Arm.js" defer></script>
         <!-- <script src="Menu.js"></script> -->
         <script src="Cylinder.js"></script>
+
+        <!-- CSS
+        Tyylitys -->
 
         <style>
             .Belt-main-controlbox > :nth-child(1) {
@@ -94,8 +103,12 @@
 
     <body>    
         <div class="control-panel">
+
+            <!-- Burgermenu -->
             
             <div class="Burgermenu" id="Burgermenu"  style="height: 100vh; width: 100vw"></div>
+
+            <!-- Belt, Arm and Cylinder controlboxes -->
 
             <div id="Belt-main-controlbox" class="Belt-main-controlbox">
                 <div>
@@ -117,6 +130,7 @@
                     </table>
                 </div>
             </div>
+            
             <div id="Arm-main-controlbox" class="Arm-main-controlbox">
                 <div>
                     <p>Arm</p>
@@ -136,6 +150,7 @@
                     </tr>
                 </table>
             </div>
+
             <div id="Cylinder-main-controlbox" class="Cylinder-main-controlbox">
                 <div>
                     <p>Cylinder</p>
@@ -151,6 +166,7 @@
                     </tr>
                 </table>
             </div>
+
         </div>
     </body>
 

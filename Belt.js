@@ -7,6 +7,9 @@ window.addEventListener("load", async function () {
 
     try {
 
+        // Buttons from FPComponents library
+        // Napit FPComponents kirjastosta
+
         var ControlmodeButton = new FPComponents.Button_A();
         ControlmodeButton.attachToId("button-belt-forward");
         ControlmodeButton.text = "Belt forward";
@@ -18,6 +21,9 @@ window.addEventListener("load", async function () {
         ControlmodeButton2.text = "Belt backward";
         ControlmodeButton2._root.style.width = "200px";
         ControlmodeButton2._root.style.height = "100px";
+
+        // Fucntions for checking if the button is pressed
+        // Funktiot napin painalluksen tarkistamiseen
 
         ControlmodeButton._root.addEventListener("pointerdown", async function () {
             await RunBeltForward();
@@ -58,6 +64,9 @@ window.addEventListener("load", async function () {
         //DEBUG END
         
 
+        // Slider for possible future use. Slider is for selecting the speed of the belt.
+        // Liukusäädin mahdollista tulevaisuuden käyttöä varten. Liukusäädin on tarkoitettu valitsemaan hihnan nopeus.
+
         // var BeltSpeedSlider = new FPComponents.Slider_A();
         // BeltSpeedSlider.min = 0;
         // BeltSpeedSlider.max = 100;
@@ -79,6 +88,11 @@ window.addEventListener("load", async function () {
         // BeltSpeedSlider.onrelease = function(value){
         //     console.log("Slider thumb released");
         // }
+
+        
+        
+        // Functions for updating RAPID code variables
+        // Funktiot RAPID koodiin muuttujien päivittämiseen
 
         async function RunBeltForward() {
             try {

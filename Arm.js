@@ -7,6 +7,10 @@ window.addEventListener("load", async function () {
     fpComponentsEnableLog();
 
     try {
+
+        // Making the button from the FPComponents library
+        // Tehdään nappi FPComponents kirjastosta
+
         var radio1 = new FPComponents.Radio_A();
         radio1.desc = "Automatic";
         radio1.attachToId("radio1-arm-mode");
@@ -27,6 +31,9 @@ window.addEventListener("load", async function () {
             radio2.checked = true;
             toggleButtons();
         };
+
+        // Other buttons
+        // Toiset nappulat
         
         var button1 = new FPComponents.Button_A();
         button1.text = "Start";
@@ -54,6 +61,9 @@ window.addEventListener("load", async function () {
         button2._root.style.justifyContent = "center";
         button2._root.style.border = "1px solid black";
 
+        // Fucntions for checking if the button is pressed
+        // Funktiot napin painalluksen tarkistamiseen
+
         button1._root.addEventListener("pointerdown", async function () {
             await startAutomaticModeOn();
             button1._root.style.backgroundColor = "#1e8e4f";
@@ -74,6 +84,9 @@ window.addEventListener("load", async function () {
             button2._root.style.backgroundColor = "#dc3545";
         });
 
+        // Function for toggling the radio buttons
+        // Funktio radio nappien vaihtamiseen
+
         function toggleButtons() {
             if (radio1.checked) {
                 button1._root.style.display = "flex";
@@ -89,6 +102,9 @@ window.addEventListener("load", async function () {
 
             toggleAutomaticMode();
         }
+
+        // Functions for updating RAPID code variables
+        // Funktiot RAPID koodiin muuttujien päivittämiseen
 
         async function toggleAutomaticMode() {
             try {

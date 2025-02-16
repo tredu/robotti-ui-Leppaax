@@ -6,6 +6,9 @@ window.addEventListener("load", async function () {
 
     try {
 
+        // Buttons from FPComponents library
+        // Napit FPComponents kirjastosta
+
         var Cylinderbutton = new FPComponents.Button_A();
         Cylinderbutton.attachToId("button-cylinder-forward");
         Cylinderbutton.text = "Cylinder forward";
@@ -31,6 +34,10 @@ window.addEventListener("load", async function () {
         Cylinderbutton2.onclick = () => {
             PutCylinderIn();
         }
+
+        
+        // Functions for updating RAPID code variables
+        // Funktiot RAPID koodiin muuttujien päivittämiseen
 
         async function PutCylinderOut() {
             try {
