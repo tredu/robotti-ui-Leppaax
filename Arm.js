@@ -2,6 +2,7 @@ window.addEventListener("load", async function () {
 
     let AutomaticMode = false;
     let AutomaticModeOn = false;
+    let AutomaticModeOff = false;
 
     fpComponentsEnableLog();
 
@@ -16,15 +17,17 @@ window.addEventListener("load", async function () {
         radio2.attachToId("radio2-arm-mode");
 
         radio1.onclick = () => {
+            radio1.checked = true;
             radio2.checked = false;
             toggleButtons();
         };
 
         radio2.onclick = () => {
             radio1.checked = false;
+            radio2.checked = true;
             toggleButtons();
         };
-
+        
         var button1 = new FPComponents.Button_A();
         button1.text = "Start";
         button1.attachToId("Arm-auto-start");
@@ -37,10 +40,6 @@ window.addEventListener("load", async function () {
         button1._root.style.alignItems = "center";
         button1._root.style.justifyContent = "center";
         button1._root.style.border = "1px solid black";
-
-        button1.onclick = () => {
-            startAutomaticMode();
-        };
 
         var button2 = new FPComponents.Button_A();
         button2.text = "Stop";
@@ -55,9 +54,25 @@ window.addEventListener("load", async function () {
         button2._root.style.justifyContent = "center";
         button2._root.style.border = "1px solid black";
 
-        button2.onclick = () => {
-            stopAutomaticMode();
-        };
+        button1._root.addEventListener("pointerdown", async function () {
+            await startAutomaticModeOn();
+            button1._root.style.backgroundColor = "#1e8e4f";
+        });
+        
+        button1._root.addEventListener("pointerup", async function () {
+            await stopAutomaticModeOn();
+            button1._root.style.backgroundColor = "#28c76f";
+        });
+
+        button2._root.addEventListener("pointerdown", async function () {
+            await startAutomaticModeOff();
+            button2._root.style.backgroundColor = "#c82333";
+        });
+        
+        button2._root.addEventListener("pointerup", async function () {
+            await stopAutomaticModeOff();
+            button2._root.style.backgroundColor = "#dc3545";
+        });
 
         function toggleButtons() {
             if (radio1.checked) {
@@ -70,7 +85,6 @@ window.addEventListener("load", async function () {
                 button2._root.style.display = "none";
                 AutomaticMode = false;
                 console.log("Robot Arm Automatic Mode: " + AutomaticMode);
-                stopAutomaticMode();
             }
 
             toggleAutomaticMode();
@@ -98,7 +112,7 @@ window.addEventListener("load", async function () {
             }
         }
 
-        async function startAutomaticMode() {
+        async function startAutomaticModeOn() {
             try {
                 const response = await fetch("https://192.168.125.1:443/rw/rapid/symbol/RAPID/T_ROB1/MainModule/AutomaticModeOn/data", {
                     method: "POST",
@@ -121,7 +135,7 @@ window.addEventListener("load", async function () {
             }
         }
 
-        async function stopAutomaticMode() {
+        async function stopAutomaticModeOn() {
             try {
                 const response = await fetch("https://192.168.125.1:443/rw/rapid/symbol/RAPID/T_ROB1/MainModule/AutomaticModeOn/data", {
                     method: "POST",
@@ -137,10 +151,56 @@ window.addEventListener("load", async function () {
                     AutomaticModeOn = false;
                     console.log("Robot Arm Automatic Mode Stopped: " + AutomaticModeOn);
                 } else {
-                    throw new Error("Failed to stop automatic mode");
+                    throw new Error("Failed to unpress automatic mode");
                 }
             } catch (error) {
-                console.error("Error stopping automatic mode:", error);
+                console.error("Error unpressing automatic mode:", error);
+            }
+        }
+
+        async function startAutomaticModeOff() {
+            try {
+                const response = await fetch("https://192.168.125.1:443/rw/rapid/symbol/RAPID/T_ROB1/MainModule/AutomaticModeOff/data", {
+                    method: "POST",
+                    headers: {
+                        "Authorization": "Basic " + btoa("Default User:robotics"),
+                        "Content-Type": "application/x-www-form-urlencoded;v=2.0",
+                        "Accept": "application/hal+json;v=2.0",
+                    },
+                    body: "value=true"
+                });
+                
+                if (response.ok) {
+                    AutomaticModeOff = true;
+                    console.log("Robot Arm Automatic Mode stopped: " + AutomaticModeOff);
+                } else {
+                    throw new Error("Failed to start automatic mode stopper");
+                }
+            } catch (error) {
+                console.error("Error starting automatic mode stopper:", error);
+            }
+        }
+
+        async function stopAutomaticModeOff() {
+            try {
+                const response = await fetch("https://192.168.125.1:443/rw/rapid/symbol/RAPID/T_ROB1/MainModule/AutomaticModeOff/data", {
+                    method: "POST",
+                    headers: {
+                        "Authorization": "Basic " + btoa("Default User:robotics"),
+                        "Content-Type": "application/x-www-form-urlencoded;v=2.0",
+                        "Accept": "application/hal+json;v=2.0",
+                    },
+                    body: "value=false"
+                });
+
+                if (response.ok) {
+                    AutomaticModeOff = false;
+                    console.log("Robot Arm Automatic Mode stopper stopped: " + AutomaticModeOff);
+                } else {
+                    throw new Error("Failed to stop automatic mode stopper");
+                }
+            } catch (error) {
+                console.error("Error stopping automatic mode stopper:", error);
             }
         }
         

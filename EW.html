@@ -26,7 +26,7 @@
         <script src="Belt.js" defer></script>
         <script src="Arm.js" defer></script>
         <!-- <script src="Menu.js"></script> -->
-        <script src="Sylinder.js"></script>
+        <script src="Cylinder.js"></script>
 
         <style>
             .Belt-main-controlbox > :nth-child(1) {
@@ -62,24 +62,24 @@
                 padding: 10px;
             }
 
-            .Sylinder-main-controlbox > :nth-child(1) {
+            .Cylinder-main-controlbox > :nth-child(1) {
                 background-color: #dddddd;
                 height: 30px;
                 display: flex;
                 align-items: center;
                 padding-left: 8px;
             }
-            .Sylinder-main-controlbox > :nth-child(1) > p {
+            .Cylinder-main-controlbox > :nth-child(1) > p {
                 font-weight: bold;
                 font-size: 18px;
             }
-            .Sylinder-main-table td {
+            .Cylinder-main-table td {
                 padding: 15px;
             }
 
             .Belt-main-controlbox,
             .Arm-main-controlbox,
-            .Sylinder-main-controlbox {
+            .Cylinder-main-controlbox {
                 border-style: solid;
                 border-radius: 2px;
                 border-color: #d5d5d5;
@@ -136,17 +136,17 @@
                     </tr>
                 </table>
             </div>
-            <div id="Sylinder-main-controlbox" class="Sylinder-main-controlbox">
+            <div id="Cylinder-main-controlbox" class="Cylinder-main-controlbox">
                 <div>
-                    <p>Sylinder</p>
+                    <p>Cylinder</p>
                 </div>
-                <table class="Sylinder-main-table">
+                <table class="Cylinder-main-table">
                     <tr>
                         <td>
-                            <div id="button-sylinder-forward"></div>
+                            <div id="button-cylinder-forward"></div>
                         </td>
                         <td>
-                            <div id="button-sylinder-backward"></div>
+                            <div id="button-cylinder-backward"></div>
                         </td>
                     </tr>
                 </table>
@@ -168,7 +168,7 @@
 
         burgerMenu.addView("Arm", "Arm-main-controlbox", "App_Default_100.png", true);
         burgerMenu.addView("Belt", "Belt-main-controlbox", "App_Default_100.png", false);
-        burgerMenu.addView("Sylinder", "Sylinder-main-controlbox", "App_Default_100.png", false);
+        burgerMenu.addView("Cylinder", "Cylinder-main-controlbox", "App_Default_100.png", false);
         burgerMenu.attachToId("Burgermenu");
     }
     </script>

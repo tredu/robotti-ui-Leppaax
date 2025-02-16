@@ -13,29 +13,50 @@ window.addEventListener("load", async function () {
         ControlmodeButton._root.style.width = "200px";
         ControlmodeButton._root.style.height = "100px";
 
-        ControlmodeButton._root.onmousedown = async function () {
-            RunBeltForward();
-            console.log("Belt forward");
-        };
-
-        ControlmodeButton._root.onmouseup = async function () {
-            StopBeltForward();
-            console.log("Belt stopped");
-        }
-
         var ControlmodeButton2 = new FPComponents.Button_A();
         ControlmodeButton2.attachToId("button-belt-backward");
         ControlmodeButton2.text = "Belt backward";
         ControlmodeButton2._root.style.width = "200px";
         ControlmodeButton2._root.style.height = "100px";
 
-        ControlmodeButton2._root.onmousedown = async function () {
-            RunBeltBackward();
-        }
+        ControlmodeButton._root.addEventListener("pointerdown", async function () {
+            await RunBeltForward();
+            console.log("Belt moving forward...");
+        });
+        
+        ControlmodeButton._root.addEventListener("pointerup", async function () {
+            await StopBeltForward();
+            console.log("Belt stopped.");
+        });
 
-        ControlmodeButton2._root.onmouseup = async function () {
-            StopBeltBackward();
-        }
+        ControlmodeButton2._root.addEventListener("pointerdown", async function () {
+            await RunBeltBackward();
+            console.log("Belt moving backward...");
+        });
+        
+        ControlmodeButton2._root.addEventListener("pointerup", async function () {
+            await StopBeltBackward();
+            console.log("Belt stopped.");
+        });
+
+
+        //DEBUG
+
+        // ControlmodeButton._root.addEventListener("pointerdown", function () {
+        //     console.log("Pointer Down - Belt Forward");
+        // });
+        // ControlmodeButton._root.addEventListener("touchstart", function () {
+        //     console.log("Touch Start - Belt Forward");
+        // });
+        // ControlmodeButton._root.addEventListener("pointerup", function () {
+        //     console.log("Pointer Up - Belt Stopped");
+        // });
+        // ControlmodeButton._root.addEventListener("touchend", function () {
+        //     console.log("Touch End - Belt Stopped");
+        // });
+
+        //DEBUG END
+        
 
         // var BeltSpeedSlider = new FPComponents.Slider_A();
         // BeltSpeedSlider.min = 0;
@@ -61,7 +82,7 @@ window.addEventListener("load", async function () {
 
         async function RunBeltForward() {
             try {
-                const response = await fetch("https://https://192.168.125.1:443/rw/rapid/symbol/RAPID/T_ROB1/MainModule/BeltForward/data", {
+                const response = await fetch("https://192.168.125.1:443/rw/rapid/symbol/RAPID/T_ROB1/MainModule/BeltForward/data", {
                     method: "POST",
                     headers: {
                         "Authorization": "Basic " + btoa("Default User:robotics"),
@@ -84,7 +105,7 @@ window.addEventListener("load", async function () {
 
         async function StopBeltForward() {
             try {
-                const response = await fetch("https://https://https://https://192.168.125.1:443/rw/rapid/symbol/RAPID/T_ROB1/MainModule/BeltForward/data", {
+                const response = await fetch("https://192.168.125.1:443/rw/rapid/symbol/RAPID/T_ROB1/MainModule/BeltForward/data", {
                     method: "POST",
                     headers: {
                         "Authorization": "Basic " + btoa("Default User:robotics"),
@@ -107,7 +128,7 @@ window.addEventListener("load", async function () {
 
         async function RunBeltBackward() {
             try {
-                const response = await fetch("https://https://192.168.125.1:443/rw/rapid/symbol/RAPID/T_ROB1/MainModule/BeltBackward/data", {
+                const response = await fetch("https://192.168.125.1:443/rw/rapid/symbol/RAPID/T_ROB1/MainModule/BeltBackward/data", {
                     method: "POST",
                     headers: {
                         "Authorization": "Basic " + btoa("Default User:robotics"),
@@ -130,7 +151,7 @@ window.addEventListener("load", async function () {
 
         async function StopBeltBackward() {
             try {
-                const response = await fetch("https://https://192.168.125.1:443/rw/rapid/symbol/RAPID/T_ROB1/MainModule/BeltBackward/data", {
+                const response = await fetch("https://192.168.125.1:443/rw/rapid/symbol/RAPID/T_ROB1/MainModule/BeltBackward/data", {
                     method: "POST",
                     headers: {
                         "Authorization": "Basic " + btoa("Default User:robotics"),
