@@ -5,6 +5,6 @@
 
 <WebApp>
     <name>Controls</name>
-    <icon>App_Default_100.png</icon>
+    <icon>MainPage.png</icon>
     <path>EW.html</path>
 </WebApp>
